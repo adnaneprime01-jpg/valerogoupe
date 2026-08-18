@@ -1184,47 +1184,6 @@ footer{
   </div>
 </section>
 
-<!-- ================= RESERVATION EN LIGNE ================= -->
-<section id="reservation-gourmet">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow" style="color:var(--bordeaux)">Réservation en ligne</div>
-      <h2>Réserver une table</h2>
-      <div class="fleuron"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9h9l-7 6 3 9-8-6-8 6 3-9-7-6h9z"/></svg><span class="line right"></span></div>
-    </div>
-
-    <div class="reserve-box reveal">
-
-      <div class="reserve-locked" id="reserveLocked">
-        <p>Connectez-vous à votre Espace Client pour réserver une table en ligne et suivre votre demande.</p>
-        <a class="btn-gold" href="espace-client.html" style="background:var(--bordeaux); color:var(--white);">Se connecter / Créer un compte</a>
-      </div>
-
-      <form id="reserveForm" style="display:none;">
-        <div class="reserve-grid-2">
-          <div class="form-row">
-            <label>Date</label>
-            <input type="date" id="resDate" required>
-          </div>
-          <div class="form-row">
-            <label>Heure</label>
-            <input type="time" id="resTime" value="20:00" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <label>Nombre de personnes</label>
-          <input type="number" id="resGuests" min="1" max="30" value="2" required>
-        </div>
-        <button type="submit">Envoyer ma demande</button>
-        <p class="form-note">Votre demande sera enregistrée avec le statut "En attente" — nous la confirmons après vérification de disponibilité.</p>
-      </form>
-
-      <div class="reserve-msg" id="reserveSuccess">Merci ! Votre demande a bien été envoyée — retrouvez-la dans votre Espace Client.</div>
-      <div class="reserve-msg error" id="reserveError"></div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= RESERVATION & CONTACT ================= -->
 <section id="contact-gourmet">
   <div class="wrap">
@@ -1303,53 +1262,6 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => io.observe(el));
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = 'https://mxzrdusatcqvghbdkqyn.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_WG2CiwAp5LZo_qDzMbbXaA_dRMmZbnK';
-  const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  (async function initReservationWidget(){
-    const { data: { session } } = await sbClient.auth.getSession();
-    if(session){
-      document.getElementById('reserveLocked').style.display = 'none';
-      document.getElementById('reserveForm').style.display = 'block';
-    }
-  })();
-
-  const reserveForm = document.getElementById('reserveForm');
-  if(reserveForm){
-    reserveForm.addEventListener('submit', async function(e){
-      e.preventDefault();
-      const errorBox = document.getElementById('reserveError');
-      const successBox = document.getElementById('reserveSuccess');
-      errorBox.style.display = 'none';
-      successBox.style.display = 'none';
-
-      const { data: { user } } = await sbClient.auth.getUser();
-      if(!user){ errorBox.textContent = 'Session expirée, merci de vous reconnecter.'; errorBox.style.display='block'; return; }
-
-      const date = document.getElementById('resDate').value;
-      const time = document.getElementById('resTime').value;
-      const guests = document.getElementById('resGuests').value;
-
-      if(!date || !time){ errorBox.textContent = 'Merci de renseigner la date et l\'heure.'; errorBox.style.display='block'; return; }
-
-      const { error } = await sbClient.from('reservations').insert({
-        user_id: user.id,
-        maison: 'Valero Gourmet',
-        titre: `Table pour ${guests} personne(s) à ${time}`,
-        date_debut: date,
-        statut: 'En attente'
-      });
-
-      if(error){ errorBox.textContent = "Une erreur est survenue : " + error.message; errorBox.style.display='block'; return; }
-
-      reserveForm.style.display = 'none';
-      successBox.style.display = 'block';
-    });
-  }
 </script>
 </body>
 </html>
