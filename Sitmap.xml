@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://valerogroupe.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/gouvernance.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/maison-hotel.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/maison-gourmet.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/maison-immobilier.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/maison-import-export.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://valerogroupe.com/contact.html</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>
