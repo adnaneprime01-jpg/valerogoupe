@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /espace-client.html
+Disallow: /admin.html
+
+Sitemap: https://valerogroupe.com/sitemap.xml
